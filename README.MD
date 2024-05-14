@@ -1,4 +1,4 @@
-# ⛈--Analisis_de_Frecuencias--⛈
+# ⛈   Analisis_de_Frecuencias   ⛈
 
 ## Resumen
 
@@ -43,7 +43,7 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 
 ### Pre-requisitos 📋
 
-_Necesitas tener windows o Linux y python en tu computadora_
+_Necesitas tener un SO windows o Linux y tener instalado python en tu computadora_
 
 ### Instalación 🔧
 
@@ -61,4 +61,39 @@ De igual manera se puede generar un entorno de python nativo en tu computadora y
 pip install -r requirements.txt
 ```
 ## Despliegue 📦
+
+Paso 1: Activar el entorno de conda o entorno python que se creó con las especificaciones que se menciona en el apartado "Requisitos".
+
+Paso 2: Correr el script en una terminal, escribir el comando:
+
+```
+python principal.py
+```
+Paso 3:Se despliega una ventana, primero hay que importar el archivo en donde tenemos los datos que se usarán para los ajustes. Se pulsa el botón "Importar archivo", entonces se desplegará un explorador de archivos. Se pueden importar archivos .txt, .csv o .xlsx.
+
+![](image/interfaz_0.png)
+
+![](image/explorador.jpg)
+
+Ejemplo de como almacenar los datos en los archivos .txt, csv o xlsx
+
+![](image/ejemplo_txt_csv.png) ![](image/ejemplo_xlsx.png)
+
+Paso 4: Se seleccionan las funciones de distribución requeridas o pruebas estadísticas en los botones mostrados. De igual manera hay una forma de seleccionar todas las opciones, selecionando el botón "Ajuste de todas las FDP's". Finalmente se selecciona el botón ejecutar.
+
+Paso 5: Una vez seleccionados los ajustes requeridos se mostraran gráficos de estos y finalmente se guardaran las imagenes png y un reporte del ajuste en formato xlsx en la carpeta de salidas.
+
+##### Nota: en caso de requerir más de un ajuste el xlsx tendra una hoja independiente para los ajustes.
+
+Paso 6: En caso de seleccionar el ajuste de doble Gumbel, se mostrará un gráfico en donde usted decidirá el número de eventos de origen ciclonico.
+
+![](image/gumbel.png)
+
+Se cierra el gráfico y en la terminal se debe dar el número de datos de origen ciclonico.
+
+![](image/dgumbel.png)
+
+Paso 7: Al terminar se despliega un mensaje de termino, se puede generar otro ajuste pulsando el botón "Limpiar" y comenzar de nuevo desde el paso 4.
+
+
 
