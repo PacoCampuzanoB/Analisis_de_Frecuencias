@@ -95,5 +95,9 @@ Se cierra el gráfico y en la terminal se debe dar el número de datos de origen
 
 Paso 7: Al terminar se despliega un mensaje de termino, se puede generar otro ajuste pulsando el botón "Limpiar" y comenzar de nuevo desde el paso 4.
 
+Ejemplos de salidas:
 
+![](image/salida_xlsx.png)
+
+![](image/salidas.png)
 
