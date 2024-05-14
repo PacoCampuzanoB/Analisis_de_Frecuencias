@@ -80,7 +80,7 @@ def DLN3P(gastos, mediaDr, desvEst, S):
         etaZ = (1 - (w**(2.0/3))) / w**(1.0/3)           # Eta Z
 
         #************************************************************************************
-        #Se Calculan los parámetros por el me´todo de momentos
+        #Se Calculan los parámetros por el método de momentos
         #************************************************************************************
 
         x0_Mom = mediaDr * (1 - (etaX/etaZ))

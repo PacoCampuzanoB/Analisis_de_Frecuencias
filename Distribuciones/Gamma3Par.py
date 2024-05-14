@@ -7,7 +7,7 @@ searcampuzanob@gmail.com
 
 *********AJUSTE DISTRIBUCION GAMMA DE 3 PARAMETROS*******************************
 
-Falta por el método de Máxima verosimilitud
+Momentos y Máxima verosimilitud
 
 
 """
