@@ -83,7 +83,7 @@ Paso 4: Se seleccionan las funciones de distribución requeridas o pruebas estad
 
 Paso 5: Una vez seleccionados los ajustes requeridos se mostraran gráficos de estos y finalmente se guardaran las imagenes png y un reporte del ajuste en formato xlsx en la carpeta de salidas.
 
-##### Nota: en caso de requerir más de un ajuste el xlsx tendra una hoja independiente para los ajustes.
+##### Nota: en caso de requerir más de un ajuste el xlsx tendra una hoja independiente para cada ajuste.
 
 Paso 6: En caso de seleccionar el ajuste de doble Gumbel, se mostrará un gráfico en donde usted decidirá el número de eventos de origen ciclonico.
 
