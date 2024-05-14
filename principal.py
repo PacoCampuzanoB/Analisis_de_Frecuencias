@@ -148,7 +148,7 @@ lista = []
 botonTodo = Button(ventana, bg="#059", fg="white", text="Ajuste de todas las FDP's \
 'ALV :V'", command=lambda: todo(datos1)).place(x=250, y=50)
 
-botonImport = Button(ventana, bg="#059", fg="white", text="Importar archivo",\
+botonImport = Button(ventana, bg="#059", fg="red", text="Importar archivo",\
 command=lambda: iniciar()).place(x=50, y=50)
 
 botonSalida = Button(ventana, text = "Salir", command=ventana.destroy).place(x=450, y=400)
@@ -159,6 +159,8 @@ command=lambda: ejecutar(datos1)).place(x=50, y=400)
 botonLimpiar = Button(ventana,bg="#006", fg="white", text = "Limpiar",\
 command=lambda: limpiar()).place(x=250, y=400)
 
+#########################################################################################
+# Botones distribuciones
 #########################################################################################
 
 botonPest = Button(ventana, bg="#059", fg="white", text="Pruebas estadísticas",\
@@ -175,8 +177,6 @@ command=lambda: pedidos("LogNormal3P")).place(x=50, y=170)
 
 botonImport = Button(ventana, bg="#059", fg="white", text="Exponencial 1P",\
 command=lambda: pedidos("Exponencial1P")).place(x=50, y=200)
-
-#########################################################################################
 
 botonImport = Button(ventana, bg="#059", fg="white", text="Exponencial 2P",\
 command=lambda: pedidos("Exponencial2P")).place(x=250, y=80)

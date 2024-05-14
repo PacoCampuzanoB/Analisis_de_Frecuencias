@@ -16,7 +16,7 @@ import pylab as pl
 
 def DLPIII(gastos, xmedia, sEst, Sp):
     
-    """ *********AJUSTE DISTRIBUCION GAMMA DE 2 PARAMETROS******************************* """
+    """ *********AJUSTE DISTRIBUCION Log Pearson III******************************* """
     
     if (type(gastos) == str):
         print ("\aPara poder realizar el análisis de datos seleccione un archivo valido")

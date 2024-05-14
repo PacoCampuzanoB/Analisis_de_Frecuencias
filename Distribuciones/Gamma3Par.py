@@ -5,7 +5,7 @@ Created on Fri May 03 23:07:02 2024
 @author: SearCampuzano
 searcampuzanob@gmail.com
 
-*********AJUSTE DISTRIBUCION GAMMA DE 2 PARAMETROS*******************************
+*********AJUSTE DISTRIBUCION GAMMA DE 3 PARAMETROS*******************************
 
 Falta por el método de Máxima verosimilitud
 
@@ -35,7 +35,7 @@ def DG3P(gastos, xmedia, sEst, S):
         #  Se crean los arrays de salida.
         # ******************************************************************************************
         
-        V_Ut = np.zeros ((m, 4))       # Contendra Ut, V. para los valores registrados y para
+        V_Ut = np.zeros ((m, 4))       # Contendrá Ut, V. para los valores registrados y para
         V_Ut [:] = -999                # los valores extrapolados
         V_UtMv = np.zeros ((m, 4))     # Contendra Ut, V. para los valores registrados y para
         V_UtMv [:] = -999              # los valores extrapolados (máxima verosimilitud)

@@ -5,13 +5,13 @@ Created on Fri May 03 22:07:02 2024
 @author: searCampuzano
 searcampuzanob@gmail.com
 ****************************PRUEBAS DE HOMOGENEIDAD*************************************
-************************PRUEBA ESTADISTICA DE HELMERT "Ln 131-166"************************
-************************PRUEBA ESTADISTICA T DE STUDENT "Ln 172-210"**********************
-************************PRUEBA ESTADISTICA DE CRAMER "Ln "216-254"**********************
+************************PRUEBA ESTADISTICA DE HELMERT "Ln 44-88"************************
+************************PRUEBA ESTADISTICA T DE STUDENT "Ln 92-143"**********************
+************************PRUEBA ESTADISTICA DE CRAMER "Ln "147-198"**********************
 
 
 ****************************PRUEBA INDEPENDENCIA DE EVENTOS ****************************
-****************************Ln "155-201"*************************************
+****************************Ln "202-254"*************************************
 """
 
 import matplotlib.pyplot as plt
@@ -230,7 +230,7 @@ def hI(datos1):
     #*********************** * ********************************************************************
     # Correlograma
     #********************************************************************************************
-    # Creo que seria mejor cambiar el grafico con la libreria pylab    
+  
         numeracion = matrizRk [:, 0]
         limiteInf = matrizRk [:, 1]
         limiteMax = matrizRk [:, 3]

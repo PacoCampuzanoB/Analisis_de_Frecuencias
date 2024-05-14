@@ -5,7 +5,7 @@ Created on Fri May 03 23:07:02 2024
 @author: searCampuzano
 searcampuzanob@gmail.com
 
-*********AJUSTE DISTRIBUCION GUMBEL (MOMENTOS)*******************************
+*********AJUSTE DISTRIBUCION GUMBEL (MOMENTOS), (MOMENTOS L)*******************************
 
 """
 

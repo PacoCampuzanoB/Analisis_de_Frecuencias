@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Feb 28 09:01:26 2018
+Created on Wed may 01 19:01:26 2018
 
 Comienza el proyecto de análisis de frecuencias
 
@@ -13,9 +13,6 @@ searcampuzanob@gmail.com
 * el cometido de este script es que este se integre en un modulo que 
     será parte de el proyecto de analisis de frecuencias.
 
-Notas:
-+ Falta aplicar una excepción para validar arrays que no tengan datos tipo 
-    float.
 """
 import numpy as np
 import pandas as pd
