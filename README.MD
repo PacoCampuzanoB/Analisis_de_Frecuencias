@@ -101,3 +101,6 @@ Ejemplos de salidas:
 
 ![](image/salidas.png)
 
+## Autor ✒️
+
+* **Francisco Campuzano Beltrán** - *Trabajo Inicial*
