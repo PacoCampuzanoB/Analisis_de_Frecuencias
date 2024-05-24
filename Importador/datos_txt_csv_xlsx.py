@@ -31,7 +31,7 @@ def dImport():
     while True:
         
         try:   
-            rutaU = filedialog.askopenfilename(initialdir = "/home/sear/Documentos/",
+            rutaU = filedialog.askopenfilename(initialdir = r"C:\Users\sear2\Music\analisis_frecuencias\Analisis_de_Frecuencias", #"/home/sear/Documentos/",
                                         title = "Abrir solo archivos .txt, .csv, .xlsx",
                                         filetypes = (("Text files",
                                                     "*.txt*"),
