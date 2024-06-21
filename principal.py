@@ -148,7 +148,7 @@ lista = []
 botonTodo = Button(ventana, bg="#059", fg="white", text="Ajuste de todas las FDP's \
 'ALV :V'", command=lambda: todo(datos1)).place(x=250, y=50)
 
-botonImport = Button(ventana, bg="#059", fg="red", text="Importar archivo",\
+botonImport = Button(ventana, text="Importar archivo",\
 command=lambda: iniciar()).place(x=50, y=50)
 
 botonSalida = Button(ventana, text = "Salir", command=ventana.destroy).place(x=450, y=400)
