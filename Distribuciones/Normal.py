@@ -173,7 +173,7 @@ def DN(gastos, mediaDr, desvEst):
         return(cD)
 
         #*********************** * ********************************************************************
-        # El puto Fin!
+        # Fin!ヽ(。_°)ノ !
         #********************************************************************************************
 
 # https://matplotlib.org/api/markers_api.html#module-matplotlib.markers
