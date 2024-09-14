@@ -1,6 +1,6 @@
 *.pyc
-salidas/*.xlsx
-salidas/*.png
+salidas
 importador/*.pyc
 PruebasEstadisticas/*.pyc
 Distribuciones/*.pyc
+cuadernos
