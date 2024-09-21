@@ -3,4 +3,5 @@ salidas
 importador/*.pyc
 PruebasEstadisticas/*.pyc
 Distribuciones/*.pyc
-cuadernos
+cuadernos/*.ipynb_checkpoints
+cuadernos/*.virtual_documents
