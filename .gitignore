@@ -5,3 +5,4 @@ PruebasEstadisticas/*.pyc
 Distribuciones/*.pyc
 cuadernos/*.ipynb_checkpoints
 cuadernos/*.virtual_documents
+.virtual_documents

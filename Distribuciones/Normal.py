@@ -149,7 +149,7 @@ def DN(gastos, mediaDr, desvEst):
 
         pl.subplot(2,1,1)
         pl.subplots_adjust(hspace=0.3)
-        pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+        pl.scatter(tR, dReg, label='Datos Registrados', marker='.', s=20)
         pl.plot(tR, dAjust, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
         pl.legend(loc="best")
         pl.title(titulo)
@@ -158,7 +158,7 @@ def DN(gastos, mediaDr, desvEst):
         pl.grid(True, which='both', color='g', linestyle='-', linewidth=0.5)
 
         pl.subplot(2,1,2)
-        pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+        pl.scatter(tR, dReg, label='Datos Registrados', marker='.', s=20)
         pl.plot(dTrExtrap, dExtrap, color="r", linewidth="1.0", linestyle="-", label ="Datos Extrapolados")
         pl.legend(loc="best")
         pl.ylabel("Gastos (m³/s)")

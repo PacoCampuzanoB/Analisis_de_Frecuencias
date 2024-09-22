@@ -15,6 +15,8 @@ Estimación de parametros por el método de momentos y máxima verosimilitud (es
 import pandas as pd
 import numpy as np
 import pylab as pl
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 def DE1P(gastos, mediaDr):
     if (type(gastos) == str):
@@ -102,7 +104,7 @@ def DE1P(gastos, mediaDr):
         cD.insert(8, 'Error Estandart "Momentos y Máxima verosimilitud"', EEstandart [:, 0])
 
         #*********************** * ********************************************************************
-        # Graficos
+        # Gráficos
         #********************************************************************************************
         titulo = "Distribucion Exponencial 1 Parámetro (Momentos)\n EE= " + str(ErrorE)
 
@@ -133,6 +135,90 @@ def DE1P(gastos, mediaDr):
 
         pl.savefig("salidas/DistribucionExponencial1P.png", dpi=1200)
         pl.show()
+        #*********************** * ********************************************************************
+        # Gráfico plotly
+        #********************************************************************************************
+        # Crear subplots
+        fig = make_subplots(rows=2, 
+                            cols=1, 
+                            shared_xaxes=False, 
+                            vertical_spacing=0.1, 
+                            subplot_titles=("Datos ajustados", "Datos extrapolados"))
+
+        # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+        fig.add_trace(go.Scatter(x=tR, y=dReg, 
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                marker=dict(color='blue')), 
+                    row=1, col=1)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dAjust, 
+                                mode='lines', 
+                                name='Datos Ajustados', 
+                                line=dict(color='red', width=1)), 
+                    row=1, col=1)
+
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg, mode='markers', 
+                                name='Datos Registrados', 
+                                marker=dict(color='purple')), 
+                    row=2, col=1)
+        fig.add_trace(go.Scatter(x=dTrExtrap, 
+                                y=dExtrap, mode='lines', 
+                                name='Datos Extrapolados', 
+                                line=dict(color='green', 
+                                width=1)), 
+                    row=2, col=1)
+
+        # Configurar el layout
+        fig.update_layout(
+            title_text=titulo,
+            #xaxis_type="log",  # Eje x semilogarítmico
+            #yaxis_title="Gastos (m³/s)",
+            showlegend=True,
+            legend=dict(x=0.004, y=0.99)
+        )
+        '''
+        # Añadir una leyenda personalizada como anotación para el gráfico 1
+        fig.add_annotation(
+            xref="paper", yref="paper",
+            x=0.05, y=0.99, showarrow=False,
+            text="Gráfico 1: Datos Registrados y Ajustados",
+            font=dict(size=12, color="black")
+        )
+
+        # Añadir una leyenda personalizada como anotación para el gráfico 2
+        fig.add_annotation(
+            xref="paper", yref="paper",
+            x=0.05, y=0.40, showarrow=False,
+            text="Gráfico 2: Datos Registrados y Extrapolados",
+            font=dict(size=12, color="black")
+        )
+        '''
+        # Configurar ambos ejes x como logarítmicos
+        fig.update_xaxes(type="log", 
+                        range=[0, 2], 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)  # Eje x de la primera fila
+        fig.update_xaxes(type="log", 
+                        range=[0, 4], 
+                        title="Tr (Periodos de retorno)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)  # Eje x de la segunda fila
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)
+
+        # Mostrar el gráfico
+        #fig.show()
+        fig.write_html(r'C:\Users\sear2\Music\analisis_frecuencias\Analisis_de_Frecuencias\salidas\grafico_plotly_exp_1p.html')
 
         #*********************** * ********************************************************************
         # se manda el data frame al principal
