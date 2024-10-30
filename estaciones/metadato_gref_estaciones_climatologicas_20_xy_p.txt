@@ -1,0 +1,154 @@
+Metadato estructurado conforme a la Norma Técnica Mexicana para la Elaboración de Metadatos Geográficos 
+
+
+* SECCIÓN 1. Identificación del conjunto de datos espaciales o producto 
+ 
+- Ecosistema Nacional Informático (ENI): No aplica.
+- Capítulo ENI: No aplica.
+- Subcapítulo ENI: No aplica.
+- Título del conjunto de datos espaciales o producto: Estaciones climatológicas 2020. 
+- Nombre de archivo: gref_estaciones_climatologicas_20_xy_p
+- Propósito: Poner de manifiesto la ubicación de las estaciones climatológicas en México.
+- Descripción del conjunto de datos espaciales o producto: El archivo contiene la ubicación de las estaciones climatológicas en México registradas en la base de datos del Servicio Meteorológico Nacional. Así como el enlace a la información climatológica y las variables meteorológicas observadas, como los registros diarios de lluvia, evaporación, temperaturas mínimas y máximas, al igual que las Normales Climatológicas. Datos de origen del Comisión Nacional del Agua (Conagua), 2010 - actualizados a 2020.
+- Idioma del conjunto de datos espaciales o producto: Español.
+- Tema principal del conjunto de datos espaciales o producto: Atmósfera climatológica.
+- Grupo de datos del conjunto de datos espaciales o producto: Grupo de datos de recursos naturales y clima.
+- Palabras clave: estaciones climatológicas, climatología, meteorología, clima, precipitación, temperatura, temperatura media, evaporación, evapotranspiración, hidrometeorológico, temperatura máxima, temperatura mínima, Normales Climatológicas, Conagua, Comisión Nacional del Agua, Servicio Meteorológico Nacional. 
+- Forma de presentación de los datos espaciales: Mapa digital.
+- URL del recurso: https://gema.conahcyt.mx/
+- Frecuencia de mantenimiento y actualización: No programado.
+- Uso específico: Visualizar la ubicación de las estaciones climatológicas en México. 
+- Codificación: UTF-8.
+- Estructura de datos: Vectorial.
+- Tipo de geometría: Puntos.
+- Tamaño de archivo: 4.10 Mb.
+- Formato: gpkg y geojson (complementario csv y xlsx).
+
+
+* SECCIÓN 2. Fechas relacionadas con el conjunto de datos espaciales o productos 
+ 
+- Fecha de referencia del conjunto de datos espaciales o producto: 07-2022.
+- Tipo de fecha: Revisión - identificador de la fecha que especifica cuándo el recurso fue examinado o reexaminado y mejorado o corregido.
+- Fecha de creación de los insumos: 08-07-2022 (fecha de descarga).
+- Nombre del insumo: Información Estadística Climatológica (formato en KMZ).
+ 
+
+* SECCIÓN 3. Unidad del estado responsable del conjunto de datos espaciales o productos 
+ 
+- Nombre de la organización: Consejo Nacional de Humanidades, Ciencias y Tecnologías (Conahcyt).
+- Enlace en línea: https://conahcyt.mx/
+ 
+
+* SECCIÓN 4. Localización geográfica del conjunto de datos espaciales o productos 
+ 
+- Coordenadas máximas y mínimas: (-118.2781, -86.735, 14.6178, 32.7153).
+
+
+* SECCIÓN 5. Sistema de referencia 
+ 
+- Unidades de coordenadas: Grados decimales.
+- Sistema de referencia de coordenadas: EPSG:4326.
+
+
+* SECCIÓN 6. Calidad de la información (linaje) 
+ 
+- Linaje: La capa original de datos se descargó el 08/07/2022 del portal de Conagua, "Estaciones Climatológicas en Google Earth".
+- Pasos del proceso: (A) El formato del archivo descargable es KMZ, por lo que se tuvo que hacer la correspondiente transformación de formato a geopaquete y estructuración de atributos. (B) La capa de estaciones se unió espacialmente con la capa geográfica del Marco Geoestadístico 2020 del INEGI para obtener el estado y municipio de ubicación de cada estación. (C) Los nombres de estados y municipios se colocaron en mayúsculas para homogeneizar los valores de los atributos. (D) Se agregaron las columnas 'x_long' y 'y_lat'. (E) Los valores nulos se reemplazaron con "-999" con fines de visualización.
+- Fuente: Conagua - https://smn.conagua.gob.mx/es/climatologia/informacion-climatologica/informacion-estadistica-climatologica
+ 
+
+* SECCIÓN 7. Entidades y atributos 
+ 
+- Detalle de entidades y atributos: El conjunto de datos cuenta con 22 campos y 5,467 objetos geográficos.
+
+
+* SECCIÓN 8. Distribución 
+ 
+- Tipo de licenciamiento: Bajo los términos de libre uso MX de los Datos Abiertos del gobierno de México, ver https://datos.gob.mx/libreusomx
+
+
+* SECCIÓN 9. Información del contacto para los metadatos 
+ 
+- Nombre de la organización: Consejo Nacional de Humanidades, Ciencias y Tecnologías
+			     Coordinación de Repositorios, Investigación y Prospectiva
+- Correo electrónico de contacto: dadsig@conahcyt.mx
+ 
+- Fecha de los metadatos: 12/07/2022. 
+
+
+################################################################ 
+ 
+Notas u observaciones: El archivo contiene la ubicación, registros y estadísticas de las estaciones climatológicas registradas en la base de datos del Servicio Meteorológico Nacional. Se indica que la base es de 2010 y por ende la CDMX aparece como Distrito Federal. Es importante mencionar que los registros meteorológicos y climáticos se actualizan con regularidad.
+		       Las coordenadas 'x_long' y 'y_lat' se obtuvieron mediante la función de "$x" y "$y" del software QGIS 3.22.6. Dicho cálculo fue con base en el EPSG: 4326.
+ 
+################################################################ 
+ 
+--------------------------------------------
+DICCIONARIO DE CAMPOS O VARIABLES
+
+campo: 'g_id'
+descripción: Identificador único consecutivo
+
+campo: 'cve_ent'
+descripción: Clave INEGI de la entidad federativa en donde se ubica la estación
+
+campo: 'nom_ent'
+descripción: Nombre de la entidad federativa en donde se ubica la estación
+
+campo: 'cve_mun'
+descripción: Clave INEGI del municipio en donde se ubica la estación
+
+campo: 'cvegeomun'
+descripción: Clave INEGI concatenada de la entidad federativa y el municipio en donde se ubica la estación
+
+campo: 'nom_mun'
+descripción: Nombre del municipio en donde se ubica la estación
+
+campo: 'clave'
+descripción: Clave numérica de la estación
+
+campo: 'nombre'
+descripción: Nombre con que se identifica la estación
+
+campo: 'entidad_monitoreo'
+descripción: Entidad responsable del monitoreo de la estación
+
+campo: 'municipio_monitoreo'
+descripción: Municipio responsable del monitoreo de la estación
+
+campo: 'situacion'
+descripción: Se indica el estatus de la estación (activa o suspendida)
+
+campo: 'organismo'
+descripción: Organismo responsable de la estación
+
+campo: 'cuenca'
+descripción: Nombre de la cuenca a la que pertenece la estación
+
+campo: 'clim_dia'
+descripción: Enlace en línea que despliega una ventana para consultar los registros de lluvia, evaporación y temperaturas en algún periodo o fecha en particular
+
+campo: 'estadis'
+descripción: Enlace en línea que despliega un documento PDF que contiene información general de la estación, tabla de lluvia y evaporación con valores mínimo, promedio y máximo por década y año
+
+campo: 'norm_51_10'
+descripción: Enlace en línea que despliega una ventana con las Normales 1951-2010. Esta opción sólo está disponible si los datos registrados por la estación cumplen los criterios para su cálculo
+
+campo: 'norm_71_00'
+descripción: Enlace en línea que despliega una ventana con las Normales 1971-2000. Esta opción sólo está disponible si los datos registrados por la estación cumplen los criterios para su cálculo
+
+campo: 'norm_81_10'
+descripción: Enlace en línea que despliega una ventana con las Normales 1981-2010. Esta opción sólo está disponible si los datos registrados por la estación cumplen los criterios para su cálculo
+
+campo: 'val_extr'
+descripción: Enlace en línea que despliega una ventana con los valores extremos. Esta opción sólo está disponible si los datos registrados por la estación cumplen los criterios para su cálculo
+
+campo: 'val_mens'
+descripción: Enlace en línea que despliega una ventana con los valores mensuales. Esta opción sólo está disponible si los datos registrados por la estación cumplen los criterios para su cálculo
+
+campo: 'x_long'
+descripción: Coordenada de longitud en formato decimal
+
+campo: 'y_lat'
+descripción: Coordenada de latitud en formato decimal
+
