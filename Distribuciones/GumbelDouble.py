@@ -189,7 +189,7 @@ def DDG(gastos):
     print("\x1b[1;32;m" + "b2: ", "\x1b[1;35;m",b2, "\n")
     print("\x1b[1;32;m" + "Probabilidad: ", "\x1b[1;35;m",P, "\n")
     
-    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección".
+    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección", para obtener los gastos estimados.
     matriz01[:, 7] = gEstimados[:, 0]
     
     E = 0
@@ -461,7 +461,7 @@ def DDG(gastos):
     #******************************************************************************************
     
     a1 = pIn[0]; a2 = pIn[1]; b1 = pIn[2]; b2 = pIn[3]; P = pIn[4]
-    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección".
+    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección" para datos estimados.
     matriz01[:, 8] = gEstimados[:, 0]
     gEstimados1 = biseccion(matriz02[:, 1], a1, a2, b1, b2, P, n) # Se invoca a la función bisección para los datos extrapolados
     matriz02[:12, 2] = gEstimados1[:, 0]
@@ -478,8 +478,8 @@ def DDG(gastos):
         EE0 = EE0 + foo0
         EE1 = EE1 + foo1
     
-    EE0 = (EE0 / (58 - 5)) ** 0.5 
-    EE1 = (EE1 / (58 - 5)) ** 0.5 
+    EE0 = (EE0 / (m - 5)) ** 0.5 # Tenía error --> EE1 = (EE1 / (58 - 5)) ** 0.5
+    EE1 = (EE1 / (m - 5)) ** 0.5 # Tenía error --> EE1 = (EE1 / (58 - 5)) ** 0.5
     
     print ("Función Doble Gumbel, error cuadrático mínimo (Sin Optimizar): ", EE0)
     print ("Función Doble Gumbel, error cuadrático mínimo (Optimizado): ", EE1)
