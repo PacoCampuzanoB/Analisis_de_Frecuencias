@@ -6,3 +6,6 @@ Distribuciones/*.pyc
 cuadernos/*.ipynb_checkpoints
 cuadernos/*.virtual_documents
 .virtual_documents
+Distribuciones/_pycache_
+importador/_pycache_
+PruebasEstadisticas/_pycache_
