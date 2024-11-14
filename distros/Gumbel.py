@@ -13,6 +13,8 @@ import pandas as pd
 import numpy as np
 import pylab as pl
 import math
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 def DG(gastos, mediaDr, desvEst, estacion):
     if (type(gastos) == str):
@@ -239,6 +241,248 @@ def DG(gastos, mediaDr, desvEst, estacion):
         pl.savefig(titulo_grafico_3, dpi=1200)
         pl.show()
 
+        #*********************** * ********************************************************************
+        # Gráficos html
+        # Gráfico momentos
+        #*********************** * ********************************************************************
+        
+        titulo_grafico_4 = "salidas/" + estacion + "_Gumbel_Mom.html"
+        titulo_grafico_5 = "salidas/" + estacion + "_Gumbel_Mom-L.html"
+        titulo_grafico_6 = "salidas/" + estacion + "_Gumbel_Mom_Mom-L.html"
+        titulo0 = "Distribucion Gumbel (Momentos) <br>EE= " + str(EEMom)
+        titulo1 = "Distribucion Gumbel (Momentos-L). EE= " + str(EEMomL)
+        fig = make_subplots(rows=2, 
+                            cols=1, 
+                            shared_xaxes=False, 
+                            vertical_spacing=0.09, 
+                            subplot_titles=("Datos ajustados", "Datos extrapolados"))
+        # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg, 
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='blue')), 
+                    row=1, col=1)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dAjustMom, 
+                                mode='lines', 
+                                name='Datos Ajustados', 
+                                line=dict(color='red', width=1)), 
+                    row=1, col=1)
+
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg,
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='purple')), 
+                    row=2, col=1)
+        fig.add_trace(go.Scatter(x=dTrExtrap, 
+                                y=dExtrapMom, 
+                                mode='lines', 
+                                name='Datos Extrapolados', 
+                                line=dict(color='green', 
+                                width=1)), 
+                    row=2, col=1)
+
+        # Configurar el layout
+        fig.update_layout(
+            title_text=titulo0,
+            title_x=0.5,  # Centra el título
+            #xaxis_type="log",  # Eje x semilogarítmico
+            #yaxis_title="Gastos (m³/s)",
+            showlegend=True,
+            legend=dict(x=0.004, y=0.99))
+
+        # Configurar ambos ejes x como logarítmicos
+        fig.update_xaxes(type="log", 
+                        range=[0, 2], 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)  # Eje x de la primera fila
+        fig.update_xaxes(type="log", 
+                        range=[0, 4], 
+                        title="Tr (Periodos de retorno)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)  # Eje x de la segunda fila
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)
+
+        #fig.show()
+        fig.write_html(titulo_grafico_4)
+        
+        #*********************** * ********************************************************************
+        # Gráfico momentos L
+        #*********************** * ********************************************************************
+        
+        # Gráficos html Momentos L
+        # Crear subplots
+        #titulo0 = "Distribucion Gumbel (Momentos) <br>EE= " + str(EEMom)
+        titulo1 = "Distribucion Gumbel (Momentos-L) <br> EE= " + str(EEMomL)
+        fig = make_subplots(rows=2, 
+                            cols=1, 
+                            shared_xaxes=False, 
+                            vertical_spacing=0.09, 
+                            subplot_titles=("Datos ajustados", "Datos extrapolados"))
+        # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg, 
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='blue')), 
+                    row=1, col=1)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dAjustMax, 
+                                mode='lines', 
+                                name='Datos Ajustados', 
+                                line=dict(color='red', width=1)), 
+                    row=1, col=1)
+
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg,
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='purple')), 
+                    row=2, col=1)
+        fig.add_trace(go.Scatter(x=dTrExtrap, 
+                                y=dExtrapMax, 
+                                mode='lines', 
+                                name='Datos Extrapolados', 
+                                line=dict(color='green', 
+                                width=1)), 
+                    row=2, col=1)
+
+        # Configurar el layout
+        fig.update_layout(
+            title_text=titulo1,
+            title_x=0.5,  # Centra el título
+            #xaxis_type="log",  # Eje x semilogarítmico
+            #yaxis_title="Gastos (m³/s)",
+            showlegend=True,
+            legend=dict(x=0.004, y=0.99)) # posición de la leyenda
+
+        # Configurar ambos ejes x como logarítmicos
+        fig.update_xaxes(type="log", 
+                        range=[0, 2], 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)  # Eje x de la primera fila
+        fig.update_xaxes(type="log", 
+                        range=[0, 4], 
+                        title="Tr (Periodos de retorno)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)  # Eje x de la segunda fila
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)
+
+        #fig.show()
+        fig.write_html(titulo_grafico_5)
+        
+        #*********************** * ********************************************************************
+        # Gráfico comparación
+        #*********************** * ********************************************************************
+        
+        # Gráficos html, comparación
+        # Crear subplots
+        #titulo0 = "Distribucion Gumbel (Momentos) <br>EE= " + str(EEMom)
+        #titulo1 = "Distribucion Gumbel (Momentos-L) <br> EE= " + str(EEMomL)
+        fig = make_subplots(rows=2, 
+                            cols=1, 
+                            shared_xaxes=False, 
+                            vertical_spacing=0.09, 
+                            subplot_titles=("Datos ajustados", "Datos extrapolados"))
+        # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg, 
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='blue')), 
+                    row=1, col=1)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dAjustMom, 
+                                mode='lines', 
+                                name='Datos Ajustados (Momentos)', 
+                                line=dict(color='red', width=1)), 
+                    row=1, col=1)
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dAjustMax, 
+                                mode='lines', 
+                                name='Datos Ajustados (Momentos-L)', 
+                                line=dict(color='green', width=1)), 
+                    row=1, col=1)
+
+        fig.add_trace(go.Scatter(x=tR, 
+                                y=dReg,
+                                mode='markers', 
+                                name='Datos Registrados', 
+                                #alpha=.4, 
+                                marker=dict(color='purple')), 
+                    row=2, col=1)
+        fig.add_trace(go.Scatter(x=dTrExtrap, 
+                                y=dExtrapMom, 
+                                mode='lines', 
+                                name='Datos Extrapolados (Momentos)', 
+                                line=dict(color='blue', 
+                                width=1)), 
+                    row=2, col=1)
+        fig.add_trace(go.Scatter(x=dTrExtrap, 
+                                y=dExtrapMax, 
+                                mode='lines', 
+                                name='Datos Extrapolados (Momentos-L)', 
+                                line=dict(color='black', 
+                                width=1)), 
+                    row=2, col=1)
+
+        # Configurar el layout
+        fig.update_layout(
+            title_text="Distribución Gumbel <br> Momentos y Momentos-L",
+            title_x=0.5,  # Centra el título
+            #xaxis_type="log",  # Eje x semilogarítmico
+            #yaxis_title="Gastos (m³/s)",
+            showlegend=True,
+            legend=dict(x=0.004, y=0.99)) # posición de la leyenda
+
+        # Configurar ambos ejes x como logarítmicos
+        fig.update_xaxes(type="log", 
+                        range=[0, 2], 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)  # Eje x de la primera fila
+        fig.update_xaxes(type="log", 
+                        range=[0, 4], 
+                        title="Tr (Periodos de retorno)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)  # Eje x de la segunda fila
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=1, col=1)
+        fig.update_yaxes(title_text="Gastos (m³/s)", 
+                        showgrid=True, 
+                        gridcolor='lightgray', 
+                        row=2, col=1)
+
+        #fig.show()        
+        fig.write_html(titulo_grafico_4)
         #*********************** * ********************************************************************
         # se manda el data frame al principal
         #********************************************************************************************
