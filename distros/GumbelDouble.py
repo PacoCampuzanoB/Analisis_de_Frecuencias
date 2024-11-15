@@ -482,8 +482,8 @@ def DDG(gastos, estacion):
         EE0 = EE0 + foo0
         EE1 = EE1 + foo1
     
-    EE0 = (EE0 / (58 - 5)) ** 0.5 
-    EE1 = (EE1 / (58 - 5)) ** 0.5 
+    EE0 = (EE0 / (m - 5)) ** 0.5 
+    EE1 = (EE1 / (m - 5)) ** 0.5 
     
     print ("Función Doble Gumbel, error cuadrático mínimo (Sin Optimizar): ", EE0)
     print ("Función Doble Gumbel, error cuadrático mínimo (Optimizado): ", EE1)
