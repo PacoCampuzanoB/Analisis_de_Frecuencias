@@ -16,6 +16,8 @@ import pandas as pd
 import numpy as np
 import pylab as pl
 import math
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 def DDG(gastos):
     """ Implementación del algoritmo de Rosenbrock a la funcion de distribución
@@ -87,7 +89,7 @@ def DDG(gastos):
     
     matriz01 = np.zeros ((m, 9))
     
-    matriz02 = np.zeros ((m, 3))
+    matriz02 = np.zeros ((m, 4))
     matriz02 [:] = -999
     matriz02 [0, 0] = 2
     matriz02 [1, 0] = 5
@@ -189,8 +191,10 @@ def DDG(gastos):
     print("\x1b[1;32;m" + "b2: ", "\x1b[1;35;m",b2, "\n")
     print("\x1b[1;32;m" + "Probabilidad: ", "\x1b[1;35;m",P, "\n")
     
-    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección".
+    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección", para obtener los gastos estimados.
     matriz01[:, 7] = gEstimados[:, 0]
+    gEstimados = biseccion(matriz02[:, 1], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección", para obtener los gastos extrapolados.
+    matriz02[:12, -1] = gEstimados[0:12, 0]
     
     E = 0
     
@@ -461,9 +465,9 @@ def DDG(gastos):
     #******************************************************************************************
     
     a1 = pIn[0]; a2 = pIn[1]; b1 = pIn[2]; b2 = pIn[3]; P = pIn[4]
-    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección".
+    gEstimados = biseccion(matriz01[:, 3], a1, a2, b1, b2, P, m) # Se invoca a la función "bisección" para los datos optimizados.
     matriz01[:, 8] = gEstimados[:, 0]
-    gEstimados1 = biseccion(matriz02[:, 1], a1, a2, b1, b2, P, n) # Se invoca a la función bisección para los datos extrapolados
+    gEstimados1 = biseccion(matriz02[:, 1], a1, a2, b1, b2, P, n) # Se invoca a la función bisección para los datos extrapolados optimizados
     matriz02[:12, 2] = gEstimados1[:, 0]
     
     foo0 = 0.0
@@ -478,75 +482,13 @@ def DDG(gastos):
         EE0 = EE0 + foo0
         EE1 = EE1 + foo1
     
-    EE0 = (EE0 / (58 - 5)) ** 0.5 
-    EE1 = (EE1 / (58 - 5)) ** 0.5 
+    EE0 = (EE0 / (m - 5)) ** 0.5 # Tenía error --> EE1 = (EE1 / (58 - 5)) ** 0.5
+    EE1 = (EE1 / (m - 5)) ** 0.5 # Tenía error --> EE1 = (EE1 / (58 - 5)) ** 0.5
     
     print ("Función Doble Gumbel, error cuadrático mínimo (Sin Optimizar): ", EE0)
     print ("Función Doble Gumbel, error cuadrático mínimo (Optimizado): ", EE1)
     EEstandart[0, 0] = EE0
     EEstandart[0, 1] = EE1
-    #******************************************************************************************
-    # Graficos
-    #******************************************************************************************
-
-    titulo0 = "Distribucion Doble Gumbel (sin optimizar)\n EE= " + str(EE0)
-    titulo1 = "Distribucion Doble Gumbel (Algoritmo de Rosenbrock)\n EE= " + str(EE1)
-
-    tR = matriz01 [:, 2]
-    dReg = matriz01 [:, 1]
-    dAjust = matriz01 [:, 7]
-    dAjust1 = matriz01 [:, 8]
-    dTrExtrap = matriz02 [:12, 0]
-    dExtrap = matriz02 [:12, 2]
-    
-    
-    pl.subplot(2, 1, 1)
-    pl.subplots_adjust(hspace=0.4)
-    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
-    pl.plot(tR, dAjust, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
-    pl.legend(loc="best")
-    pl.title(titulo0)
-    pl.ylabel("Gastos(m³/s)")
-    #pl.xlabel("Periodo de retorno") 
-    pl.semilogx(True)
-    pl.grid(True, which='both', color='g', linestyle='-', linewidth=0.5)
-    
-    pl.subplot(2, 1, 2)
-    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
-    pl.plot(tR, dAjust1, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
-    pl.legend(loc="best")
-    pl.title(titulo1)
-    pl.ylabel("Gastos(m³/s)")
-    pl.xlabel("Periodo de retorno") 
-    pl.semilogx(True)
-    pl.grid(True, which='both', color='g', linestyle='-', linewidth=0.5)
-    pl.savefig("salidas/DistribucionDGumbelRosen0.png", dpi=1200)
-    pl.show()
-    
-    pl.subplot(2, 1, 1)
-    pl.subplots_adjust(hspace=0.4)
-    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
-    pl.plot(tR, dAjust1, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
-    pl.legend(loc="best")
-    pl.title("Ajuste Doble Gumbel (Algoritmo de Rosenbrock)")
-    pl.ylabel("Gastos(m³/s)")
-    #pl.xlabel("Periodo de retorno") 
-    pl.semilogx(True)
-    pl.grid(True, which='both', color='g', linestyle='-', linewidth=0.5)
-    
-    pl.subplot(2, 1, 2)
-    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
-    #pl.scatter(dTrExtrap, dExtrap, label='Datos Extrapolados', marker='.', color='r')
-    pl.plot(dTrExtrap, dExtrap, color="r", linewidth="1.0", linestyle="-", label ="Datos Extrapolados")
-    pl.legend(loc="best")
-    pl.title("Gastos Extrapolados")
-    pl.ylabel("Gastos (m³/s)")
-    pl.xlabel("Periodo de Retorno en años (Tr)")
-    pl.semilogx(True)
-    pl.grid(True, which='both', color='g', linestyle='-', linewidth=0.5)
-    
-    pl.savefig("salidas/DistribucionDGumbelRosen1.png", dpi=1200)
-    pl.show()
     
     #******************************************************************************************
     # Salidas
@@ -560,13 +502,383 @@ def DDG(gastos):
     
     cD.insert(9, 'Tr', matriz02 [:, 0])
     cD.insert(10, 'F(X)', matriz02 [:, 1])
-    cD.insert(11, 'Valor Extrapolado (Rosenbrock)', matriz02 [:, 2])
-    cD.insert(12, 'Error Estandart "sin optimizar"', EEstandart[:, 0])
-    cD.insert(13, 'Error Estandart "algoritmo de Rosenbrock"', EEstandart[:, 1])
+    cD.insert(11, 'Valor Extrapolado (sin optimizar)', matriz02 [:, 3])
+    cD.insert(12, 'Valor Extrapolado (Rosenbrock)', matriz02 [:, 2])
+    cD.insert(13, 'Error Estandart "sin optimizar"', EEstandart[:, 0])
+    cD.insert(14, 'Error Estandart "algoritmo de Rosenbrock"', EEstandart[:, 1])
+
+    #******************************************************************************************
+    # Graficos
+    #******************************************************************************************
+
+    titulo0 = "Distribucion Doble Gumbel (sin optimizar)\n EE= " + str(EE0)
+    titulo1 = "Distribucion Doble Gumbel (Algoritmo de Rosenbrock)\n EE= " + str(EE1)
+
+    tR = matriz01 [:, 2]
+    dReg = matriz01 [:, 1]
+    dAjust = matriz01 [:, 7] # Gastos estimados
+    dAjust1 = matriz01 [:, 8] # Gastos estimados por Rosenbrock
+    dTrExtrap = matriz02 [:12, 0] # Periodos de retorno
+    dExtrap_sr = matriz02 [:12, 3] # Datos extrapolados sin Rosenbrock
+    dExtrap = matriz02 [:12, 2] # Datos extrapolados Rosenbrock
+
+    ##################################################################################################################
+    # Gráfico comparación
+    ###################################################################################################################
+    
+    pl.subplot(2, 1, 1)
+    pl.subplots_adjust(hspace=0.4)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    pl.plot(tR, dAjust, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados (sin optimizar)")
+    pl.plot(tR, dAjust1, color="g", linewidth="1.0", linestyle="-", label ="Datos Ajustados (Rosenbrock)")
+    pl.legend(loc="best")
+    pl.title("Distribución Doble Gumbel\n (Datos sin optimizar y ajustados con el algoritmo Rosenbrock)")
+    pl.ylabel("Gastos(m³/s)")
+    #pl.xlabel("Periodo de retorno") 
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#b1b1b1', linestyle='-', linewidth=0.5)
+    
+    pl.subplot(2, 1, 2)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    pl.plot(dTrExtrap, dExtrap, color="g", linewidth="1.0", linestyle="-", label ="Datos Extrapolados (Rosenbrock)")
+    pl.plot(dTrExtrap, dExtrap_sr, color="r", linewidth="1.0", linestyle="-", label ="Datos Extrapolados (sin optimizar)")
+    pl.legend(loc="best")
+    #pl.title(titulo1)
+    pl.ylabel("Gastos(m³/s)")
+    pl.xlabel("Periodo de retorno") 
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#b1b1b1', linestyle='-', linewidth=0.5)
+    pl.savefig("salidas/grafico_dgumbel_comparacion.png", dpi=1200)
+    pl.show()
+
+    ##################################################################################################################
+    # Gráfico optimización Rosenbrock
+    ###################################################################################################################
+
+    pl.subplot(2, 1, 1)
+    pl.subplots_adjust(hspace=0.4)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    pl.plot(tR, dAjust1, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
+    pl.legend(loc="best")
+    pl.title(titulo1)
+    pl.ylabel("Gastos(m³/s)")
+    #pl.xlabel("Periodo de retorno") 
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#5ab45f', linestyle='-', linewidth=0.5)
+
+    pl.subplot(2, 1, 2)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    #pl.scatter(dTrExtrap, dExtrap, label='Datos Extrapolados', marker='.', color='r')
+    pl.plot(dTrExtrap, dExtrap, color="r", linewidth="1.0", linestyle="-", label ="Datos Extrapolados")
+    pl.legend(loc="best")
+    pl.title("Gastos Extrapolados")
+    pl.ylabel("Gastos (m³/s)")
+    pl.xlabel("Periodo de Retorno en años (Tr)")
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#5ab45f', linestyle='-', linewidth=0.5)
+    pl.savefig("salidas/grafico_dgumbe_rosenbrock.png", dpi=1200)
+
+    pl.show()
+
+    ##################################################################################################################
+    # Gráfico estimados sin optimizar
+    ###################################################################################################################
+
+    pl.subplot(2, 1, 1)
+    pl.subplots_adjust(hspace=0.4)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    pl.plot(tR, dAjust, color="r", linewidth="1.0", linestyle="-", label ="Datos Ajustados")
+    pl.legend(loc="best")
+    pl.title(titulo0)
+    pl.ylabel("Gastos(m³/s)")
+    #pl.xlabel("Periodo de retorno") 
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#5ab45f', linestyle='-', linewidth=0.5)
+
+    pl.subplot(2, 1, 2)
+    pl.scatter(tR, dReg, label='Datos Registrados', marker='.')
+    #pl.scatter(dTrExtrap, dExtrap, label='Datos Extrapolados', marker='.', color='r')
+    pl.plot(dTrExtrap, dExtrap_sr, color="r", linewidth="1.0", linestyle="-", label ="Datos Extrapolados")
+    pl.legend(loc="best")
+    pl.title("Gastos Extrapolados")
+    pl.ylabel("Gastos (m³/s)")
+    pl.xlabel("Periodo de Retorno en años (Tr)")
+    pl.semilogx(True)
+    pl.grid(True, which='both', color='#5ab45f', linestyle='-', linewidth=0.5)
+
+    pl.savefig("salidas/grafico_dgumbel_sin_optimizacion.png", dpi=1200)
+    pl.show()
+
+    #**********************************************************************************************
+    # Gráficos html
+    # Comparación
+    #**********************************************************************************************
+
+    titulo0 = "Distribucion Doble Gumbel<br>Datos sin optimizar y datos optimizados por Rosenbrock."
+    #titulo1 = "Distribucion Gumbel (Momentos-L). EE= " + str(EEMomL)
+    fig = make_subplots(rows=2, 
+                        cols=1, 
+                        shared_xaxes=False, 
+                        vertical_spacing=0.09, 
+                        subplot_titles=("Datos ajustados", "Datos extrapolados"))
+    # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg, 
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='blue')), 
+                row=1, col=1)
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust, 
+                            mode='lines', 
+                            name='Datos Ajustados (sin optimizar)', 
+                            line=dict(color='red', width=1)), 
+                row=1, col=1)
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust1, 
+                            mode='lines', 
+                            name='Datos Ajustados (optimizados)',
+                            line=dict(color='green', width=1)), 
+                row=1, col=1)
+
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg,
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='purple')), 
+                row=2, col=1)
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap_sr, 
+                            mode='lines', 
+                            name='Datos Extrapolados (sin optimizar)', 
+                            line=dict(color='red', 
+                            width=1)), 
+                row=2, col=1)
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap, 
+                            mode='lines', 
+                            name='Datos Extrapolados (optimizados)', 
+                            line=dict(color='green', 
+                            width=1)), 
+                row=2, col=1)
+
+    # Configurar el layout
+    fig.update_layout(
+        title_text=titulo0,
+        title_x=0.5,  # Centra el título
+        #xaxis_type="log",  # Eje x semilogarítmico
+        #yaxis_title="Gastos (m³/s)",
+        showlegend=True,
+        legend=dict(x=0.004, y=0.99))
+
+    # Configurar ambos ejes x como logarítmicos
+    fig.update_xaxes(type="log", 
+                    range=[0, 2], 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)  # Eje x de la primera fila
+    fig.update_xaxes(type="log", 
+                    range=[0, 4], 
+                    title="Tr (Periodos de retorno)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)  # Eje x de la segunda fila
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)
+
+    #fig.show()
+    fig.write_html(r'salidas\grafico_dgumbel_comparacion.html')
+    
+    ##################################################################################################################
+    # Gráfico optimización Rosenbrock
+    ###################################################################################################################
+    
+    titulo1 = "Distribucion Doble Gumbel (Algoritmo de Rosenbrock)<br> EE= " + str(EE1)
+    fig = make_subplots(rows=2, 
+                        cols=1, 
+                        shared_xaxes=False, 
+                        vertical_spacing=0.09, 
+                        subplot_titles=("Datos ajustados", "Datos extrapolados"))
+    # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg, 
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='blue')), 
+                row=1, col=1)
+    """
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust, 
+                            mode='lines', 
+                            name='Datos Ajustados (sin optimizar)', 
+                            line=dict(color='red', width=1)), 
+                row=1, col=1)"""
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust1, 
+                            mode='lines', 
+                            name='Datos Ajustados (optimizados)',
+                            line=dict(color='green', width=1)), 
+                row=1, col=1)
+
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg,
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='purple')), 
+                row=2, col=1)
+    """
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap_sr, 
+                            mode='lines', 
+                            name='Datos Extrapolados (sin optimizar)', 
+                            line=dict(color='red', 
+                            width=1)), 
+                row=2, col=1)"""
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap, 
+                            mode='lines', 
+                            name='Datos Extrapolados (optimizados)', 
+                            line=dict(color='green', 
+                            width=1)), 
+                row=2, col=1)
+
+    # Configurar el layout
+    fig.update_layout(
+        title_text=titulo1,
+        title_x=0.5,  # Centra el título
+        #xaxis_type="log",  # Eje x semilogarítmico
+        #yaxis_title="Gastos (m³/s)",
+        showlegend=True,
+        legend=dict(x=0.004, y=0.99))
+
+    # Configurar ambos ejes x como logarítmicos
+    fig.update_xaxes(type="log", 
+                    range=[0, 2], 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)  # Eje x de la primera fila
+    fig.update_xaxes(type="log", 
+                    range=[0, 4], 
+                    title="Tr (Periodos de retorno)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)  # Eje x de la segunda fila
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)
+
+    #fig.show()
+    fig.write_html(r'salidas\grafico_dgumbe_rosenbrock.html')
+    
+    ##################################################################################################################
+    # Gráfico estimados sin optimizar
+    ###################################################################################################################
+    
+    titulo0 = "Distribucion Doble Gumbel (sin optimizar)<br> EE= " + str(EE0)
+    #titulo1 = "Distribucion Doble Gumbel (Algoritmo de Rosenbrock)<br> EE= " + str(EE1)
+    fig = make_subplots(rows=2, 
+                        cols=1, 
+                        shared_xaxes=False, 
+                        vertical_spacing=0.09, 
+                        subplot_titles=("Datos ajustados", "Datos extrapolados"))
+    # Gráfico 1: Datos Registrados (Scatter) y Datos Ajustados (Línea)
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg, 
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='blue')), 
+                row=1, col=1)
+
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust, 
+                            mode='lines', 
+                            name='Datos Ajustados (sin optimizar)', 
+                            line=dict(color='green', width=1)), 
+                row=1, col=1)
+    """
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dAjust1, 
+                            mode='lines', 
+                            name='Datos Ajustados (optimizados)',
+                            line=dict(color='green', width=1)), 
+                row=1, col=1)
+    """
+    fig.add_trace(go.Scatter(x=tR, 
+                            y=dReg,
+                            mode='markers', 
+                            name='Datos Registrados', 
+                            #alpha=.4, 
+                            marker=dict(color='purple')), 
+                row=2, col=1)
+
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap_sr, 
+                            mode='lines', 
+                            name='Datos Extrapolados (sin optimizar)', 
+                            line=dict(color='green', 
+                            width=1)), 
+                row=2, col=1)
+    """
+    fig.add_trace(go.Scatter(x=dTrExtrap, 
+                            y=dExtrap, 
+                            mode='lines', 
+                            name='Datos Extrapolados (optimizados)', 
+                            line=dict(color='green', 
+                            width=1)), 
+                row=2, col=1)
+    """
+    # Configurar el layout
+    fig.update_layout(
+        title_text=titulo0,
+        title_x=0.5,  # Centra el título
+        #xaxis_type="log",  # Eje x semilogarítmico
+        #yaxis_title="Gastos (m³/s)",
+        showlegend=True,
+        legend=dict(x=0.004, y=0.99))
+
+    # Configurar ambos ejes x como logarítmicos
+    fig.update_xaxes(type="log", 
+                    range=[0, 2], 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)  # Eje x de la primera fila
+    fig.update_xaxes(type="log", 
+                    range=[0, 4], 
+                    title="Tr (Periodos de retorno)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)  # Eje x de la segunda fila
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=1, col=1)
+    fig.update_yaxes(title_text="Gastos (m³/s)", 
+                    showgrid=True, 
+                    gridcolor='lightgray', 
+                    row=2, col=1)
+
+    #fig.show()
+    fig.write_html(r'salidas\grafico_dgumbel_sin_optimizacion.html')
 
     #*********************** * ********************************************************************
     # se manda el data frame al principal
-    #********************************************************************************************
+    #**********************************************************************************************
 
     return(cD)
 
