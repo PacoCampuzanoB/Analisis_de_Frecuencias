@@ -78,6 +78,11 @@ def DLN3P(gastos, mediaDr, desvEst, S):
         w = ((((ginsesg**2)+4)**0.5) -ginsesg) / 2       # Omega
         etaX = desvEst / mediaDr                         # Eta X
         etaZ = (1 - (w**(2.0/3))) / w**(1.0/3)           # Eta Z
+        print(f'gsesg = {gsesg}')
+        print(f'ginsesg = {ginsesg}')
+        print(f'omega = {w}')
+        print(f'etaX = {etaX}')
+        print(f'etaZ = {etaZ}')
 
         #************************************************************************************
         #Se Calculan los parámetros por el método de momentos
@@ -86,6 +91,9 @@ def DLN3P(gastos, mediaDr, desvEst, S):
         x0_Mom = mediaDr * (1 - (etaX/etaZ))
         muY_Mom = np.log(desvEst / etaZ) - (0.5 * np.log(etaZ**2 + 1))
         sigmaY_Mom = (np.log(etaZ**2 + 1)) ** 0.5
+        print(f'x0_Mom = {x0_Mom}')
+        print(f'muY_Mom = {muY_Mom}')
+        print(f'sigmaY_mom = {sigmaY_Mom}')
 
         #************************************************************************************
         #Se calculan los parámetros por el método Máxima Verosimilitud
@@ -96,9 +104,15 @@ def DLN3P(gastos, mediaDr, desvEst, S):
         paramMV = parametrosMV[1]
         muY_MV =paramMV[0]          # Parametro (muy) por el metodo de máxima verosimilitud
         sigmaY_MV = paramMV[1]      # Parámetro (sigmay) por el metodo de máxima verosimilitud
-        #Fx = paramMV[2]             # Resultado de la ecuación F(x) descrita en la función paramMaxVerLN3P
-        #noIteraciones = paramMV[3]  # No de iteraciones que se llevó la función para estimar los parametros
-        
+        Fx = paramMV[2]             # Resultado de la ecuación F(x) descrita en la función paramMaxVerLN3P
+        noIteraciones = paramMV[3]  # No de iteraciones que se llevó la función para estimar los parametros
+        print(f'parametrosMv = {parametrosMV}')
+        print(f'x0_Mv = {x0_MV}')
+        print(f'paramMV = {paramMV}')
+        print(f'muY_MV = {muY_MV}')
+        print(f'sigmaY_MV = {sigmaY_MV}')
+        print(f'Fx = {Fx}')
+        print(f'NoIteraciones = {noIteraciones}')
         #************************************************************************************
         #Se Calcula la columna de los gastos ajustados y Error Estandart
         #************************************************************************************
@@ -234,7 +248,7 @@ def DLN3P(gastos, mediaDr, desvEst, S):
         #*********************** * ********************************************************************
         
         print ("Error estandart método de momentos, ajuste LogNormal 3 parámetros: ", EE_Mom)
-        print ("Error estandart método de méxima verosimilitud, ajuste LogNormal 3 parámetros: ", EE_MV)
+        print ("Error estandart método de máxima verosimilitud, ajuste LogNormal 3 parámetros: ", EE_MV)
         print ("\a")
 
         #*********************** * ********************************************************************

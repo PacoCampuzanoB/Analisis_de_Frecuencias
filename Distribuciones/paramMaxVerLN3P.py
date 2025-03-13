@@ -88,10 +88,10 @@ def parametros(datos):
             fa = fp
         if ((fa * fp) < 0):
             b = p
-#    print ("x0:", p)
-#    print ("mu_y:", rp[0]) 
-#    print ("sigma_y:", rp[1])
-#    print ("F(xo):", rp[2])
+    print ("\n\nx0:", p)
+    print ("mu_y:", rp[0]) 
+    print ("sigma_y:", rp[1])
+    print ("F(xo):", rp[2])
     return (p, rp)
 #********************************************************************************************
 #  Fin! ヽ(。_°)ノ 

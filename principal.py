@@ -74,7 +74,7 @@ def todo(datos1):
         
         dfDdg = Distribuciones.GumbelDouble.DDG(datos1)
         dfDdg.to_excel(writer, sheet_name="DobleGumbel", index=False)
-    messagebox.showinfo(title="Info!", message="proceso terminado! ☜(ˆ▿ˆ)")
+    messagebox.showinfo(title="Info!", message="proceso terminado! ヽ(。_°)ノ ")
 #########################################################################################
 
 def pedidos(num):
