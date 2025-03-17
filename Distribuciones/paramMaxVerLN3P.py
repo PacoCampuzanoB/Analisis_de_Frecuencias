@@ -19,7 +19,7 @@ Los parámetros por Máxima Verosimilitud son:
     
 Para encontrar los parámetros se resolverá la función a través del metodo
 de bisección, se usará una tolerancia de 1*10-13. el valor inicial será 
-el el 95% del valor más pequeño de la muestra.
+el 95% del valor más pequeño de la muestra.
 
 """
 
