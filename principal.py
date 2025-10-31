@@ -26,6 +26,7 @@ import Importador.datos_txt_csv_xlsx
 import PruebasEstadisticas.Homogeneidad_Independencia
 import numpy as np
 import pandas as pd
+import os
 
 #########################################################################################
 
@@ -135,6 +136,8 @@ def limpiar():
     print("Sin Peticiones: ", lista)
 
 #########################################################################################
+carpeta_salida = os.path.join(os.path.dirname(__file__), 'salidas')
+os.makedirs(carpeta_salida, exist_ok=True)
 
 ventana = Tk()
 ventana.geometry("900x506")
