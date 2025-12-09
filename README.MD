@@ -35,7 +35,7 @@ considerando por lo pronto diez funciones de distribución de probabilidad.
 * Doble Gumbel
     * Solución sin optimizar y optimizada por el algoritmo de Rosenbrock
 
-También se consideran las pruebas estadísticas de homogeneidad (Helmert, T de student y Cramer),  e independencia de eventos de una muestra. 
+También se consideran las pruebas estadísticas de homogeneidad (Helmert, T de student y Cramer),  e independencia (prueba de Anderson) de eventos de una muestra. 
 
 ## Comenzando 🚀
 
